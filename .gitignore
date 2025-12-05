@@ -1,0 +1,79 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+*.swp
+
+# macOS system files
+ehthumbs.db
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.manifest
+*.spec
+*.log
+*.pot
+*.mo
+*.coverage
+.cache/
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+pip-wheel-metadata/
+venv/
+ENV/
+env/
+.venv/
+.ipynb_checkpoints/
+
+# C++
+*.o
+*.obj
+*.gch
+*.pch
+*.exe
+*.out
+*.a
+*.lib
+*.so
+*.dll
+*.dSYM/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+build/
+Debug/
+Release/
+
+# General editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Backup files
+*~
+*.bak
+*.tmp
+*.temp
+
+# Input data files
+*.in
