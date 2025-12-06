@@ -1,36 +1,20 @@
-# 123 328  51 64 
-#  45 64  387 23 
-#   6 98  215 314
-# *   +   *   +  
-
 import sys
-
-
+import numpy as np
 
 lines = [line for line in sys.stdin]
 numbers = [list(map(int, line.split())) for line in lines[:-1]]
 operators = lines[-1].split()
 
-
 cols = len(numbers[0])
-# print(cols)
-# print(numbers)
-# print(operators)
 rows = len(numbers)
-# print(rows)
-
-ans1 = 0
 
 s = numbers[0][:]
-for j in range(cols):
-    for i in range(1,rows):
-        if operators[j] == '*':
-            s[j] *= numbers[i][j]
-        elif operators[j] == '+':
-            s[j] += numbers[i][j]
-    ans1 += s[j]
+numbersT = np.transpose(numbers)
+ans1 = 0
+for i in range(cols):
+    ans1 += np.sum(numbersT[i]) if operators[i] == '+' else np.prod(numbersT[i])
 
-print(ans1)
+print('ans1: ',ans1)
 
 operators_idx = []
 for i in range(len(lines[-1])):
@@ -39,26 +23,13 @@ for i in range(len(lines[-1])):
     else:
         operators_idx.append(i)
 operators_idx.append(len(lines[-1]))
-# print(operators_idx)
-# next_operator_idx = operators_idx[1:] + [cols]
+ops_ranges = list(zip(operators_idx[:-1], operators_idx[1:], operators))
 
-s2numbers = [[]] * cols
+linesT = np.transpose(np.array([list(line) for line in lines[:-1]], dtype=str))
 
-for j in range(cols):
-    s2numbers[j] = [''] * (operators_idx[j+1] - operators_idx[j])
-    # print(j, operators_idx[j], operators_idx[j+1])
-    for i in range(rows):
-        for k in range(operators_idx[j], operators_idx[j+1]):
-            s2numbers[j][k - operators_idx[j]] += lines[i][k]
+ans2 = 0
+for row_begin, row_end, op in ops_ranges:
+    numbers = list(map(int, [''.join(line).strip() for line in linesT[row_begin:row_end].tolist() if ' '.join(line).strip() != '']))
+    ans2 += np.sum(numbers) if op == '+' else np.prod(numbers)
 
-
-s2 = [1 if o == '*' else 0 for o in operators]
-
-for j in range(cols):
-    
-    # print(j, s2numbers[j], s2[j])
-    # print('join:', operators[j].join([s.strip() for s in s2numbers[j] if s.strip() != '']))
-
-    s2[j] = int(eval(operators[j].join([s.strip() for s in s2numbers[j] if s.strip() != ''])))
-
-print(sum(s2))
+print('ans2: ',ans2)
